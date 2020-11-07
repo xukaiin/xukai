@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | Starter</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="/stylesheets/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/stylesheets/AdminLTE.min.css">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect. -->
+  <link rel="stylesheet" href="/stylesheets/skins/skin-blue.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<!--
+BODY TAG OPTIONS:
+=================
+Apply one or more of the following classes to get the
+desired effect
+|---------------------------------------------------------|
+| SKINS         | skin-blue                               |
+|               | skin-black                              |
+|               | skin-purple                             |
+|               | skin-yellow                             |
+|               | skin-red                                |
+|               | skin-green                              |
+|---------------------------------------------------------|
+|LAYOUT OPTIONS | fixed                                   |
+|               | layout-boxed                            |
+|               | layout-top-nav                          |
+|               | sidebar-collapse                        |
+|               | sidebar-mini                            |
+|---------------------------------------------------------|
+-->
+
+<body class="hold-transition skin-blue sidebar-mini">
+  <div class="wrapper">
+
+    <!-- Main Header -->
+
+    <%- include("./header.ejs") %>
+
+    <!-- Left side column. contains the logo and sidebar -->
+    <%- include("./sidebar.ejs") %>
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          商品管理
+          <small>
+            <a href="/pro/add" class="btn btn-info btn-xs">添加商品</a>
+          </small>
+        </h1>
+
+        <ol class="breadcrumb">
+          <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+          <li class="active">Here</li>
+        </ol>
+      </section>
+
+      <!-- Main content -->
+      <section class="content container-fluid">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">商品信息</h3>
+            <div class="box-tools">
+              <form action="/pro/search" method="get">
+                <div class="input-group input-group-sm" style="width: 150px;">
+
+                  <input type="text" name="search" id="search" class="form-control pull-right" placeholder="Search">
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <th>序号</th>
+                  <th>名称</th>
+                  <th>分类</th>
+                  <th>品牌</th>
+                  <th>logo</th>
+                  <th>图片</th>
+                  <th>价格
+                    排序
+                    <a href="/pro/sort1"> <i class="fa fa-level-up" aria-hidden="true"></i> </a>
+                    <a href="/pro/sort2"><i class="fa fa-level-down" aria-hidden="true"></i></a>
+                    </a>
+                  </th>
+                  <th>介绍</th>
+                  <th>库存</th>
+                  <th>折扣</th>
+                  <th>评分</th>
+                  <th>操作</th>
+                </tr>
+
+                <% for(var i=0;i<data.length;i++){ %>
+                <tr>
+                  <td><%= data[i]._id%></td>
+                  <td><%= data[i].proName %></td>
+                  <td><%= data[i].column %></td>
+                  <td><%= data[i].brand %></td>
+                  <td><img width="30" src="<%= data[i].logo %>" alt=""></td>
+                  <td><img width="40" src="<%= data[i].proImg %>" alt=""></td>
+                  <td><%= data[i].price %></td>
+                  <td><%= data[i].introduce %></td>
+                  <td><%= data[i].stock %></td>
+                  <td><%= data[i].discount %></td>
+                  <td><%= data[i].score %></td>
+                  <td>
+                    <!-- <button type="button" class="btn btn-warning btn-sm" style="width:50px">修改</button> -->
+                    <!-- <button type="button" class="btn btn-danger btn-sm" style="width:50px">删除</button> -->
+                    <a href="/pro/update?_id=<%=data[i]._id%>" class="btn btn-warning btn-sm" style="width:50px">修改</a>
+                    <a href="/pro/delete?_id=<%=data[i]._id%>" class="btn btn-danger btn-sm" style="width:50px">删除</a>
+                  </td>
+                </tr>
+                <% } %>
+
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Main Footer -->
+    <%- include("./footer.ejs") %>
+
+    <!-- Control Sidebar -->
+    <%- include("./rightside.ejs") %>
+
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+  immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- REQUIRED JS SCRIPTS -->
+
+  <!-- jQuery 3 -->
+  <script src="/javascripts/jquery.min.js"></script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="/javascripts/bootstrap.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/javascripts/adminlte.min.js"></script>
+
+  <!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
+</body>
+
+</html>
